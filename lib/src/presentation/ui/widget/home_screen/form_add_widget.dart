@@ -1,30 +1,39 @@
 import 'dart:developer';
 
+import 'package:birth_days_app/src/data/person_event_repository.dart';
+import 'package:birth_days_app/src/domain/enties/entities.dart';
+import 'package:birth_days_app/src/domain/interactors/form_add_interactor.dart';
 import 'package:birth_days_app/src/presentation/bloc/home_bloc.dart';
+import 'package:birth_days_app/src/presentation/dto/add_event.dart';
+import 'package:birth_days_app/src/utils/ex_formlib_bloc/ad_event_widget.dart';
+import 'package:birth_days_app/src/utils/ex_formlib_bloc/cupertino_datepicker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_form_bloc/flutter_form_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:birth_days_app/src/utils/locale_helper/l10n.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:birth_days_app/src/presentation/bloc/form/form_add_bloc.dart';
 
+import '../dialogs_form_widget.dart';
 import '../loading_widget.dart';
 
 
-getAddingPersonBottomSheet(dynamic context, MainHomeBloc hm) {
+getAddingPersonBottomSheet(dynamic context) {
   initializeDateFormatting(Intl.getCurrentLocale(), null);
 
-  AddPersonFormBloc formBloc=AddPersonFormBloc();
+  var hm = BlocProvider.of<MainHomeBloc>(context);
+  AddPersonFormBloc formBloc;
   int ps;
 
   //final _formKey = GlobalKey<FormState>();
 
-  //showNewGroupModal(AddDataBloc adb) async{
-   /* onAdded() {
+  showNewGroupModal(AddDataInteractor adb) async{
+    onAdded() {
       formBloc.addedGroup();
     }
-    await showAddGroupDialog(S.current.com_Add("").trim(),context,onAdded,adb);*/
- // }
+    await showAddGroupDialog(S.current.com_Add("").trim(),context,onAdded,adb);
+  }
 
   showModalBottomSheet<void>(
       isScrollControlled: true,
@@ -32,12 +41,32 @@ getAddingPersonBottomSheet(dynamic context, MainHomeBloc hm) {
       builder: (BuildContext context) {
         //return BlocProvider(  create: (_) => AddDataBloc(hm,EventPersonsRepository()),
         //child:BlocBuilder<AddDataBloc, AddingState>(
-        return BlocProvider(  create: (_) => formBloc,
+        return BlocProvider(  create: (_) => AddPersonFormBloc(AddDataInteractor(hm,EventPersonsRepository()),showNewGroupModal),
             child: BlocBuilder<AddPersonFormBloc,FormBlocState>(
                 cubit: formBloc,
                 builder: (context,stateb) {
                   formBloc = BlocProvider.of<AddPersonFormBloc>(context);
-                  return Stack(children:[
+                  return FormBlocListener<AddPersonFormBloc, String, String>(
+                      onSubmitting: (context, state) {
+
+                      },
+                      onSubmissionCancelled: (context, state) {
+
+                      },
+                      onSuccess: (context, state) {
+                        Navigator.pop(context);
+                      },
+                      onFailure: (context, state) {
+                        log("FormError");
+                        Navigator.pop(context);
+                      },
+                      onLoaded: (context, state) {
+                        //formBloc.reload();
+                      },
+                      onSubmissionFailed: (context, state) {
+                        log("Submission error");
+                      },
+                      child:Stack(children:[
 
                         NotificationListener<DraggableScrollableNotification>(
                             onNotification: (DraggableScrollableNotification notification) {
@@ -49,7 +78,7 @@ getAddingPersonBottomSheet(dynamic context, MainHomeBloc hm) {
                                 maxChildSize: 0.9,
                                 //initialChildSize: 0.5,
                                 builder: (_, controller) {
-                                  if (stateb is FormLoadingState) return LoadingIndicator();
+                                  if (stateb is FormBlocLoading) return LoadingIndicator();
                                   else return SingleChildScrollView(
                                     controller: controller,
                                     padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
@@ -69,26 +98,95 @@ getAddingPersonBottomSheet(dynamic context, MainHomeBloc hm) {
                                                   })
                                             ]
                                         ),
-                                      TextField(
-                                        onChanged: (String text) {
-                                          formBloc.field1.updatedText(text);
-                                        },
-                                        enableSuggestions: false,
-                                        decoration: InputDecoration(
-                                          labelText: S
-                                              .of(context)
-                                              .form_Add_fName,
-                                          prefixIcon: Icon(
-                                              Icons.person_pin_rounded),
+                                        TextFieldBlocBuilder(
+                                          textFieldBloc: formBloc.textName,
+                                          enableSuggestions: false,
+                                          decoration: InputDecoration(
+                                            labelText: S.of(context).form_Add_fName,
+                                            prefixIcon: Icon(Icons.person_pin_rounded),
+                                          ),
                                         ),
-                                        ), InputDatePickerFormField(
-
+                                        DropdownFieldBlocBuilder<GroupEntity>(
+                                          showEmptyItem: false,
+                                          selectFieldBloc: formBloc.select1,
+                                          decoration: InputDecoration(
+                                            labelText: S.of(context).form_Add_fGroup,
+                                            prefixIcon: Icon(Icons.sentiment_satisfied),
+                                          ),
+                                          itemBuilder: (context, value) {
+                                            return value.name;
+                                          },
+                                        ),
+                                        Padding(padding: EdgeInsets.only(top:10), child:
+                                        CupertinoDateTimeFieldBlocBuilder(
+                                            dateTimeFieldBloc: formBloc.birthDate,
+                                            format: DateFormat('dd.MM.yyyy'),
                                             initialDate: DateTime.now().subtract(Duration(days: 3650)),
                                             firstDate: DateTime(1900),
                                             lastDate: DateTime(2100),
-                                            fieldLabelText: S.of(context).form_Add_Birth,
-                                        )
-                                  ]));
+                                            decoration: InputDecoration(
+                                              labelText: S.of(context).form_Add_Birth,
+                                              prefixIcon: Icon(Icons.cake_rounded),
+                                              //helperText: 'Date',
+                                            )),
+                                        ),
+                                        BlocBuilder<ListFieldBloc<InputFieldBloc<FormAdEvent, Object>>,
+                                            ListFieldBlocState<InputFieldBloc<FormAdEvent, Object>>>(
+                                          cubit: formBloc.eventFields,
+                                          builder: (context, state) {
+                                            if (state.fieldBlocs.isNotEmpty) {
+                                              return ListView.builder(
+                                                shrinkWrap: true,
+                                                physics: NeverScrollableScrollPhysics(),
+                                                itemCount: state.fieldBlocs.length,
+                                                itemBuilder: (context, i) {
+                                                  final ev = state.fieldBlocs[i];
+                                                  return AdEventFieldBlocBuilder(
+                                                    dateTimeFieldBloc: ev,
+                                                    onRefreshBloc: () {
+                                                      //formBloc.eventFields.addFieldBloc(new InputFieldBloc<FormAdEvent, Object>( initialValue: new FormAdEvent(null, "")));
+                                                      //formBloc.eventFields.removeFieldBlocAt(formBloc.eventFields.state.fieldBlocs.length);
+                                                    },
+                                                    onRemoveMember: () {
+                                                      formBloc.removeEv(i);
+                                                    },
+                                                    format: DateFormat('dd.MM.yyyy'),
+                                                    initialDate: ev.value.date,
+                                                    firstDate: DateTime(1900),
+                                                    lastDate: DateTime(2100),
+                                                    decoration: InputDecoration(
+                                                      labelText: ev.value.name,
+                                                      prefixIcon: Icon(Icons.calendar_today),
+                                                      //helperText: 'Date',
+                                                    ),
+                                                  );
+
+                                                },
+                                              );
+                                            }
+                                            return Container();
+                                          },
+                                        ),
+                                        if (!(stateb is FormBlocLoading)) Padding(padding: EdgeInsets.only(top:10,bottom: 60),child:
+                                        RaisedButton.icon(
+                                          onPressed: () async {
+
+                                            onSubmit(dynamic context, dynamic state, DateTime dt, String name) {
+                                              formBloc.eventFields.addFieldBloc(new InputFieldBloc<FormAdEvent, Object>( initialValue: new FormAdEvent(dt, name)));
+                                            }
+
+                                            FormAdEvent result=FormAdEvent(null, "");
+                                            AddPersonAddEventFormBloc formBlocz;
+
+                                            await showAddMoreEventDialog(S.of(context).com_Add("").trim(),result, context, formBlocz, onSubmit);
+                                            //formBloc.eventFields.addFieldBloc(new InputFieldBloc<FormAdEvent, Object>( initialValue: new FormAdEvent(DateTime.now(), "Свадьба")));
+                                          },
+                                          icon: Icon(Icons.add),
+                                          label: Text(S.of(context).form_Add_AddEvent),
+                                        ))
+                                      ],
+                                    ),
+                                  );
                                 })),
                         Positioned(
                             bottom: 0,
@@ -103,8 +201,7 @@ getAddingPersonBottomSheet(dynamic context, MainHomeBloc hm) {
                                 ),
                                 child:Row(
                                     children:[
-                                      //if (!(stateb is FormLoadingState))
-                                        Expanded(
+                                      if (!(stateb is FormBlocLoading)) Expanded(
                                           child:Container(
                                               color: Colors.white,
                                               alignment: Alignment.bottomCenter,
@@ -127,8 +224,7 @@ getAddingPersonBottomSheet(dynamic context, MainHomeBloc hm) {
                                               )
                                           )
                                       ),
-                                      //if (!(stateb is FormLoadingState))
-                                        Expanded(
+                                      if (!(stateb is FormBlocLoading)) Expanded(
                                           child:Container(
                                               color: Colors.lightBlue,
                                               alignment: Alignment.bottomCenter,
@@ -144,7 +240,7 @@ getAddingPersonBottomSheet(dynamic context, MainHomeBloc hm) {
                                                             child:Icon(Icons.check_rounded,color: Colors.white,size:26)
                                                         ),
                                                         onTap: () {
-                                                          //formBloc.submit();
+                                                          formBloc.submit();
                                                         },
                                                       )
 
@@ -156,7 +252,8 @@ getAddingPersonBottomSheet(dynamic context, MainHomeBloc hm) {
                                 )
                             )
                         ),
-                      ]);
+                      ])
+                  );
                 })
         );
       }).whenComplete(() {
@@ -164,6 +261,7 @@ getAddingPersonBottomSheet(dynamic context, MainHomeBloc hm) {
     formBloc.close();
   });
 }
+
 
 //TODO event add
 /*_getAddingEventBottomSheet(dynamic context) async {

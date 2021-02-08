@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:birth_days_app/src/domain/enties/completed_entities.dart';
+import 'package:birth_days_app/src/domain/enties/entities.dart';
 import 'package:birth_days_app/src/domain/interactors/home_list_inter.dart';
 import 'package:birth_days_app/src/presentation/dto/home_list/home_list_dto.dart';
 
@@ -34,8 +35,8 @@ class NavUpdated extends MainHomeEvent  {
 }
 
 class ItemAddedOrChanged extends MainHomeEvent  {
-  final List<CompletedPerson> persons;
-  final List<CompletedEvent> events;
+  final List<PersonEntity> persons;
+  final List<EventEntity> events;
 
   ItemAddedOrChanged(this.persons,this.events);
 
