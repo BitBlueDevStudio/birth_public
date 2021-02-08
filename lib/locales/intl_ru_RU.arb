@@ -1,0 +1,43 @@
+{
+  "@@locale": "ru_RU",
+
+  "appName": "сДР",
+  "frag1Title": "Главная",
+  "frag2Title": "Календарь",
+  "frag3Title": "Контакты",
+  "screen_MenuTitle": "Меню",
+
+  "com_NotSelected": "Не выбрано",
+  "com_Unknown": "Неизвестно",
+  "com_DateSelect": "Выбор даты",
+  "com_Back": "Назад",
+  "com_Add": "Добавить",
+  "com_Select": "Выбрать",
+  "com_notFound": "Не найдено",
+  "com_CreateNew": "Создать новую",
+  "com_Import": "Импорт",
+  "com_Today": "Сегодня",
+  "com_birthDay": "День рождения",
+
+  "form_Add_title": "Добавление контакта",
+  "form_Add_fName": "Имя",
+  "form_Add_fGroup": "Группа",
+  "form_Add_Birth": "День рождения",
+  "form_Add_Event": "Событие",
+  "form_Add_AddEvent": "Добавить еще событие",
+  "form_Add_Submit": "Добавить человека",
+
+  "form_Add_Ev_fMan": "Выбрать контакт",
+
+  "form_AddEvent_fTitle": "Название события",
+  "form_AddEvent_fDate": "Дата события",
+
+  "form_AddGroupName": "Название группы",
+
+  "formError_Add_fName": "Введите имя",
+
+  "formError_AddEvent_fTitle": "Введите название",
+  "formError_AddEvent_fDate": "Введите дату",
+
+  "listEvent_Recents": "Recent events"
+}

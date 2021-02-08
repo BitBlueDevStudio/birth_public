@@ -1,0 +1,42 @@
+{
+  "@@locale": "en",
+  "appName": "HB",
+  "frag1Title": "Home",
+  "frag2Title": "Calendar",
+  "frag3Title": "People",
+  "screen_MenuTitle": "Menu",
+
+  "com_NotSelected": "Not selected",
+  "com_Unknown": "Unknown",
+  "com_DateSelect": "Date select",
+  "com_Back": "Back",
+  "com_Add": "Add {item}",
+  "com_Select": "Select {item}",
+  "com_notFound": "Not found",
+  "com_CreateNew": "Create new",
+  "com_Import": "Import",
+  "com_Today": "Today",
+  "com_birthDay": "Birth day",
+
+  "form_Add_title": "New contact",
+  "form_Add_fName": "Name",
+  "form_Add_fGroup": "Group",
+  "form_Add_Birth": "Birth day",
+  "form_Add_Event": "Event",
+  "form_Add_AddEvent": "Add event",
+  "form_Add_Submit": "Add contact",
+
+  "form_Add_Ev_fMan": "Select contact",
+
+  "form_AddEvent_fTitle": "Title of event",
+  "form_AddEvent_fDate": "Date of event",
+
+  "form_AddGroupName": "Group title",
+
+  "formError_Add_fName": "Enter name",
+
+  "formError_AddEvent_fTitle": "Enter title ",
+  "formError_AddEvent_fDate": "Enter date",
+
+  "listEvent_Recents": "Recent events"
+}
