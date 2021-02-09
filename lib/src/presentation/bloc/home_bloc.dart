@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:birth_days_app/src/domain/enties/completed_entities.dart';
 import 'package:birth_days_app/src/domain/enties/entities.dart';
-import 'package:birth_days_app/src/domain/interactors/home_list_inter.dart';
+import 'package:birth_days_app/src/domain/interactors/home_list_interactor.dart';
 import 'package:birth_days_app/src/presentation/dto/home_list/home_list_dto.dart';
 
 import 'package:birth_days_app/src/presentation/dto/home_list/list_item_data_object.dart';
@@ -10,7 +10,7 @@ import 'package:birth_days_app/src/utils/locale_helper/l10n.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
-import '../../domain/interactors/inter_helpers.dart';
+import '../../domain/interactors/interactor_helpers.dart';
 import 'package:intl/intl.dart';
 
 
@@ -98,10 +98,11 @@ class HomeListEventAdded extends HomeListEvent {}
 
 class HomeListEventUpdated extends HomeListEvent {}
 
-class HomeListEventItemDeleted extends HomeListEvent {
+class HomeListItemDeleted extends HomeListEvent {
   final int id;
-  HomeListEventItemDeleted(
-      this.id
+  final MainHomeBloc mainBloc;
+  HomeListItemDeleted(
+      this.id,this.mainBloc
       );
 }
 
@@ -142,8 +143,7 @@ class HomeListBloc extends Bloc<HomeListEvent, HomeListState> {
 
   final HomeListInteractor interactor;
   final bool isPeople;
-  dynamic context;
-  HomeListBloc(this.interactor,this.isPeople,this.context) : super(HomeListStateLoading());
+  HomeListBloc(this.interactor,this.isPeople) : super(HomeListStateLoading());
 
   @override
   Stream<HomeListState> mapEventToState(HomeListEvent event) async* {
@@ -189,6 +189,8 @@ class HomeListBloc extends Bloc<HomeListEvent, HomeListState> {
           }
           else if (listEventsData[0].date.difference(DateTime.now()).inDays>0 && listEventsData[0].date.month!=DateTime.now().month) {
             listData.add(ListDataEventTitle(DateHelper.getMonthName(listEventsData[0].date)+" "+listEventsData[0].date.year.toString() , listEventsData[0].date));
+          } else if (listEventsData[0].date.difference(DateTime.now()).inDays>0 && listEventsData[0].date.month==DateTime.now().month) {
+            listData.add(ListDataEventTitle(DateHelper.getMonthName(listEventsData[0].date)+" "+listEventsData[0].date.year.toString() , listEventsData[0].date));
           }
 
           listData.add(listEventsData[0]);
@@ -230,12 +232,12 @@ class HomeListBloc extends Bloc<HomeListEvent, HomeListState> {
           ListDataPerson per=ListDataPerson(
             id: perRaw.id,
             name: perRaw.name,
-            group: perRaw.group,
-            birth: perRaw.birthday.date,
+            group: (perRaw.group!=null) ? perRaw.group : GroupEntity(name: ""),
+            birth: (perRaw.birthday!=null) ? perRaw.birthday.date : null,
             sign: perRaw.sign,
             yearSign: perRaw.chinaSign,
             age: perRaw.age,
-            birthText: DateFormat('dd.MM.yyyy').format(perRaw.birthday.date)
+            birthText: (perRaw.birthday!=null) ? DateFormat('dd.MM.yyyy').format(perRaw.birthday.date) : S.current.com_Unknown
           );
 
           listPersonsData.add(per);
@@ -249,56 +251,23 @@ class HomeListBloc extends Bloc<HomeListEvent, HomeListState> {
         yield HomeListStateError(Exception.toString());
       }
     }
-    /*else if (event is HomeListEventAdded && !isPeople) {
-
-      int added=await repo.addPerson(Person(
-        id:0,
-        name:"Test",
-        lastName:"Test",
-        groupId: -1,
-      ));
-
-      int added2= await repo.addEvent(PersonEvent(
-        id:0,
-        name: "",
-        date: DateTime.now().subtract(Duration(days: 700)),
-        eventType: EventTypes.birth,
-        personId: added
-      ));
-      if (added>=0 && added2>=0) {
-        this.add(HomeListEventLoad());
-      }
-      else yield HomeListStateError("Error adding element");
-    }*/
-    /*else if (event is HomeListEventAdded && isPeople) {
-
-      int added=await repo.addPerson(Person(
-        id:0,
-        name:"PersonTest",
-        lastName:"PerTest",
-        groupId: -1,
-      ));
-
-      if (added>=0) this.add(HomeListEventLoad());
-      else yield HomeListStateError("Error adding element");
-    }*/
-    else if (event is HomeListEventItemDeleted && !isPeople) {
-      //int deleted=await repo.deleteEvent(event.id);
-      //if (deleted==1) this.add(HomeListEventLoad());
-      //else yield HomeListStateError("Error deleting element");
+    else if (event is HomeListItemDeleted && !isPeople) {
+      int deleted=await interactor.deleteEvent(event.id);
+      if (deleted==1) this.add(HomeListEventLoad());
+      else yield HomeListStateError("Error deleting element");
 
     }
-    else if (event is HomeListEventItemDeleted && isPeople) {
-      //int deleted=await repo.deletePerson(event.id);
-      //if (deleted==1) this.add(HomeListEventLoad());
-      //else yield HomeListStateError("Error deleting element");
+    else if (event is HomeListItemDeleted && isPeople) {
+      int deleted=await interactor.deletePerson(event.id);
+      if (deleted==1) {
+        this.add(HomeListEventLoad());
+        event.mainBloc.eventsBloc.add(HomeListEventLoad());
+      }
+      else yield HomeListStateError("Error deleting element");
 
     }
     /*if (event is HomeListEventClicked) {
-    if (state is HomeListStateLoaded) yield HomeListStateLoading();
-    if (state is HomeListStateLoading) yield HomeListStateLoaded();
-     // int a= await LoadS();
-     // yield HomeListStateLoaded();
+
     }*/
   }
 }

@@ -39,7 +39,7 @@ class HomeListWidget extends StatelessWidget {
           return HomeListItem(
               item: state.listItems[index],
               onDismissed: (direction) {
-                if (direction==DismissDirection.endToStart) homeListBloc.add(HomeListEventItemDeleted(state.listItems[index].id));
+                if (direction==DismissDirection.endToStart) homeListBloc.add(HomeListItemDeleted(state.listItems[index].id,BlocProvider.of<MainHomeBloc>(context)));
                 else {
                   homeListBloc.add(HomeListEventLoad());
                 }

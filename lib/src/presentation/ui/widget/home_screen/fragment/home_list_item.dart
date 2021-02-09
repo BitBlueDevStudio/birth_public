@@ -111,7 +111,7 @@ class HomeListItem extends StatelessWidget {
                 child:Text(item.birthText)
             ),
             title: Text(item.name),
-            subtitle: Text(item.age.toString()+" лет"),
+            subtitle: Text(item.group.name),
             trailing: Text(item.sign)
         ),
       );

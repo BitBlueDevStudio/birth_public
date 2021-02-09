@@ -39,5 +39,5 @@
   "formError_AddEvent_fTitle": "Введите название",
   "formError_AddEvent_fDate": "Введите дату",
 
-  "listEvent_Recents": "Recent events"
+  "listEvent_Recents": "Недавние"
 }

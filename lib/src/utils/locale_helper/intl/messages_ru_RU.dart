@@ -54,7 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "frag1Title" : MessageLookupByLibrary.simpleMessage("Главная"),
     "frag2Title" : MessageLookupByLibrary.simpleMessage("Календарь"),
     "frag3Title" : MessageLookupByLibrary.simpleMessage("Контакты"),
-    "listEvent_Recents" : MessageLookupByLibrary.simpleMessage("Recent events"),
+    "listEvent_Recents" : MessageLookupByLibrary.simpleMessage("Недавние"),
     "screen_MenuTitle" : MessageLookupByLibrary.simpleMessage("Меню")
   };
 }

@@ -1,4 +1,4 @@
-import 'package:birth_days_app/src/domain/interactors/inter_helpers.dart';
+import 'package:birth_days_app/src/domain/interactors/interactor_helpers.dart';
 import 'package:birth_days_app/src/utils/locale_helper/l10n.dart';
 
 import 'entities.dart';
@@ -66,11 +66,11 @@ class CompletedPerson {
     }
   }
   String get sign {
-    return SignHelper.getSignFromDate(birthday.date);
+    return SignHelper.getSignFromDate(birthday!=null ? birthday.date : null );
   }
 
   String get chinaSign {
-    return SignHelper.getYearSignFromDate(birthday.date);
+    return SignHelper.getYearSignFromDate(birthday!=null ? birthday.date : null );
   }
 
 }

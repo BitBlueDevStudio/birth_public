@@ -79,6 +79,6 @@ class DateHelper {
       'December'
     ];
 
-    return months[date.month];
+    return months[date.month-1];
   }
 }

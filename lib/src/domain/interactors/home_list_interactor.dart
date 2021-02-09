@@ -53,4 +53,12 @@ class HomeListInteractor {
 
   }
 
+  Future<int> deleteEvent(int id) async {
+    return await repo.deleteEvent(id);
+  }
+
+  Future<int> deletePerson(int id) async {
+    return await repo.deletePerson(id);
+  }
+
 }

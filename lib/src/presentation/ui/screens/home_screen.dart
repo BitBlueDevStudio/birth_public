@@ -1,5 +1,5 @@
 import 'package:birth_days_app/src/data/person_event_repository.dart';
-import 'package:birth_days_app/src/domain/interactors/home_list_inter.dart';
+import 'package:birth_days_app/src/domain/interactors/home_list_interactor.dart';
 import 'package:birth_days_app/src/presentation/bloc/home_bloc.dart';
 import 'package:birth_days_app/src/presentation/ui/widget/home_screen/form_add_widget.dart';
 import 'package:birth_days_app/src/utils/locale_helper/l10n.dart';
@@ -63,9 +63,9 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (_) => MainHomeBloc(HomeListBloc(HomeListInteractor(EventPersonsRepository()),false,context)..add(HomeListEventLoad())
+        create: (_) => MainHomeBloc(HomeListBloc(HomeListInteractor(EventPersonsRepository()),false)..add(HomeListEventLoad())
             ,HomeCalendarBloc(),
-            HomeListBloc(HomeListInteractor(EventPersonsRepository()),true,context)..add(HomeListEventLoad())
+            HomeListBloc(HomeListInteractor(EventPersonsRepository()),true)..add(HomeListEventLoad())
         ),
         child: BlocBuilder<MainHomeBloc, HomeTabState>(
             builder: (context, tabState) {

@@ -67,7 +67,6 @@ class AddEventFormBloc extends FormBloc<String, String> {
   }
 
   @override Future<void> close() {
-    addBloc.close();
     textName.close();
     eventFields.close();
     return super.close();
@@ -189,7 +188,7 @@ class AddPersonFormBloc extends FormBloc<String, String> {
         evs.add(new EventEntity(id:-1,name:eventFields.value[i].value.name,date:eventFields.value[i].value.date,personId: -1,eventType: EventTypes.anni));
       }
 
-      addBloc.add(AddPerson(prs, evs,this));
+      addBloc.addPerson(prs, evs,this);
 
     } catch (e) {
       emitFailure();
@@ -197,7 +196,6 @@ class AddPersonFormBloc extends FormBloc<String, String> {
   }
 
   @override Future<void> close() {
-    addBloc.close();
     select1.close();
     birthDate.close();
     eventFields.close();
@@ -293,7 +291,7 @@ class AddGroupFormBloc extends FormBloc<String, String> {
         return;
       }
 
-      addBloc.add(AddGroup(textName.value,this));
+      addBloc.addGroup(GroupEntity(name: textName.value),this);
 
       //emitSuccess();
 

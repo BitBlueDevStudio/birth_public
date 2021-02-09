@@ -59,7 +59,7 @@ class EventPersonsRepository {
   Future<List<PersonEntity>> getAllPersons() async {
     var persons= await database.getAllPersons();
     List<PersonEntity> lst=persons.map((c) => _personToEntity(c)).toList();
-    return lst.isNotEmpty ? lst : [];
+    return lst;
   }
 
   Future<PersonEntity> getPersonById(int id) async {
@@ -89,13 +89,13 @@ class EventPersonsRepository {
   getEventsByPersonId(int id) async {
     var events = await database.getEventsByPersonId(id);
     List<EventEntity> lst=events.map((c) => _eventToEntity(c)).toList();
-    return lst.isNotEmpty ? lst : [];
+    return lst;
   }
 
   Future<List<GroupEntity>> getAllGroups() async {
     var groups = await database.getAllGroups();
     List<GroupEntity> lst=groups.map((c) => _groupToEntity(c)).toList();
-    return lst.isNotEmpty ? lst : [];
+    return lst;
   }
 
   addPerson(PersonEntity newPerson) async {
