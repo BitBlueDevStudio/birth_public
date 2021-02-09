@@ -25,7 +25,6 @@ abstract class MainHomeEvent extends Equatable {
 
 class NavUpdated extends MainHomeEvent  {
   final HomeTabState tab;
-  //final double scroll;
 
   NavUpdated(this.tab);
 
@@ -50,7 +49,6 @@ class MainHomeBloc extends Bloc<MainHomeEvent, HomeTabState> {
   final HomeCalendarBloc calendarBloc;
   double scrolled=0;
   double scrolled2=0;
-  //HomeListState lastTabState;
 
   MainHomeBloc(this.eventsBloc,this.calendarBloc,this.peopleBloc) : super(HomeTabState.home);
 
@@ -110,15 +108,6 @@ class HomeListEventFiltered extends HomeListEvent {}
 
 class HomeListEventClicked extends HomeListEvent {}
 
-
-
-/*class HomeListStateInit extends HomeListState {
-
-  HomeListStateInit();
-
-  @override
-  List<Object> get props => [];
-}*/
 
 class HomeListStateLoaded extends HomeListState {
   final List listItems;

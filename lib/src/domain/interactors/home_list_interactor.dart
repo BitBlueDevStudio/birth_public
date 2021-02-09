@@ -16,8 +16,8 @@ class HomeListInteractor {
 
     for (int i=0;i<listEvent.length;i++) {
       var evRaw=listEvent[i];
-      //TODO Тут запрос к БД на поиск по ID
       PersonEntity person = await repo.getPersonById(evRaw.personId);
+      //TODO Тут запрос к БД на поиск по ID
       GroupEntity group = listGroups.firstWhere((element) => element.id==person.groupId, orElse: () => null);
 
       if (person==null) continue;

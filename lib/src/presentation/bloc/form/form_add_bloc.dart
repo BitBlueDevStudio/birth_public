@@ -15,14 +15,11 @@ class AddEventFormBloc extends FormBloc<String, String> {
   final textName = TextFieldBloc<PersonEntity>();
   int selectedId;
 
-  //final textTitle = TextFieldBloc();
-
   final eventFields = ListFieldBloc<InputFieldBloc<FormAdEvent, Object>>();
 
   AddEventFormBloc(this.addBloc,this.context) : super(isLoading: true)  {
     addFieldBlocs(fieldBlocs: [
       textName,
-      //textTitle,
       eventFields,
     ]);
   }
@@ -35,21 +32,6 @@ class AddEventFormBloc extends FormBloc<String, String> {
   @override
   void onLoading() async {
     try {
-
-
-      /*textName.onValueChanges(
-        onData: (previous, current) async* {
-          if (current.extraData) {
-            addFieldBlocs(fieldBlocs: [secretField]);
-          } else {
-            removeFieldBlocs(fieldBlocs: [secretField]);
-          }
-        },
-      );*/
-
-
-      //eventFields.addFieldBloc(new InputFieldBloc<FormAdEvent, Object>( initialValue: new FormAdEvent(null, S.current.form_Add_Event)));
-
       emitLoaded();
     } catch (e) {
       emitLoadFailed();
@@ -105,12 +87,8 @@ class AddPersonFormBloc extends FormBloc<String, String> {
   }
 
   void addedGroup() async {
-    /*select1.clear();
-    select1.updateItems(select1.state.items.sublist(0,select1.state.items.length-1));
-    select1.addItem(new group here);
-    select1.addItem(PersonGroup(id: -2, name: S.current.com_CreateNew));*/
-    //TODO сделать нормальное обновление без перезагрузки из БД
 
+    //TODO сделать нормальное обновление без перезагрузки из БД
     select1.updateItems(select1.state.items.sublist(0,1));
     groupList=[];
     groupList=await addBloc.getGroupsList();
@@ -129,14 +107,9 @@ class AddPersonFormBloc extends FormBloc<String, String> {
     try {
       groupList=[];
       groupList=await addBloc.getGroupsList();
-      //groupList.add(PersonGroup(id: -2, name: S.current.com_CreateNew));
-
       for (int i=0;i<groupList.length;i++) {
         select1.addItem(groupList[i]);
       }
-
-
-      //await Future<void>.delayed(Duration(milliseconds: 3500));
 
       select1.addItem((GroupEntity(id: -2, name: S.current.com_CreateNew)));
 

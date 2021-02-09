@@ -52,13 +52,7 @@ class CompletedPerson {
   int get age {
     if (birthday!=null) {
       var res=DateTime.now().year - birthday.date.year;
-      //TODO нормальный возраст
-      /*if (res>0) return res;
-
-      res=DateTime.now().month- birthday.date.month;
-      if (res>0) return res;
-
-      res=DateTime.now().day - birthday.date.day;*/
+      //TODO сделать нормальный возраст в днях или месяцах или годах в зависимости от величины возраста
       return res;
 
     } else {

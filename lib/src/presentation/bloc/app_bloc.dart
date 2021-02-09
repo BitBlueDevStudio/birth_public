@@ -49,8 +49,6 @@ class AppBloc extends Bloc<AppBlocEvent, AppBlocState> {
   Stream<AppBlocState> mapEventToState(AppBlocEvent event) async* {
     if (event==AppBlocEvent.refreshed) {
       log("message");
-      //yield(AppBlocState(userLocale));
-      //initTestData();
     }
   }
 
