@@ -1,4 +1,5 @@
 import 'package:birth_days_app/src/presentation/bloc/home_bloc.dart';
+import 'package:birth_days_app/src/utils/locale_helper/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,7 +26,7 @@ class HomeCalendarWidget extends StatelessWidget {
 
 _getBody(dynamic state) {
   return Center(
-      child:Text("Calendar")
+      child:Text(S.current.frag2Title)
   );
 }
 

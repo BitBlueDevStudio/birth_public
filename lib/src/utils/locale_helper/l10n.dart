@@ -195,6 +195,26 @@ class S {
     );
   }
 
+  /// `Empty`
+  String get com_Empty {
+    return Intl.message(
+      'Empty',
+      name: 'com_Empty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error`
+  String get com_Error {
+    return Intl.message(
+      'Error',
+      name: 'com_Error',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `New contact`
   String get form_Add_title {
     return Intl.message(
@@ -340,6 +360,366 @@ class S {
     return Intl.message(
       'Recent events',
       name: 'listEvent_Recents',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `January`
+  String get dateMonth_Jan {
+    return Intl.message(
+      'January',
+      name: 'dateMonth_Jan',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `February`
+  String get dateMonth_Feb {
+    return Intl.message(
+      'February',
+      name: 'dateMonth_Feb',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `March`
+  String get dateMonth_Mar {
+    return Intl.message(
+      'March',
+      name: 'dateMonth_Mar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `April`
+  String get dateMonth_Apr {
+    return Intl.message(
+      'April',
+      name: 'dateMonth_Apr',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `May`
+  String get dateMonth_May {
+    return Intl.message(
+      'May',
+      name: 'dateMonth_May',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `June`
+  String get dateMonth_Jun {
+    return Intl.message(
+      'June',
+      name: 'dateMonth_Jun',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `July`
+  String get dateMonth_Jul {
+    return Intl.message(
+      'July',
+      name: 'dateMonth_Jul',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `August`
+  String get dateMonth_Aug {
+    return Intl.message(
+      'August',
+      name: 'dateMonth_Aug',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `September`
+  String get dateMonth_Sep {
+    return Intl.message(
+      'September',
+      name: 'dateMonth_Sep',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `October`
+  String get dateMonth_Oct {
+    return Intl.message(
+      'October',
+      name: 'dateMonth_Oct',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `November`
+  String get dateMonth_Nov {
+    return Intl.message(
+      'November',
+      name: 'dateMonth_Nov',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `December`
+  String get dateMonth_Dec {
+    return Intl.message(
+      'December',
+      name: 'dateMonth_Dec',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Capricorn`
+  String get dateSign_1 {
+    return Intl.message(
+      'Capricorn',
+      name: 'dateSign_1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Aquarius`
+  String get dateSign_2 {
+    return Intl.message(
+      'Aquarius',
+      name: 'dateSign_2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pisces`
+  String get dateSign_3 {
+    return Intl.message(
+      'Pisces',
+      name: 'dateSign_3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Aries`
+  String get dateSign_4 {
+    return Intl.message(
+      'Aries',
+      name: 'dateSign_4',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Taurus`
+  String get dateSign_5 {
+    return Intl.message(
+      'Taurus',
+      name: 'dateSign_5',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gemini`
+  String get dateSign_6 {
+    return Intl.message(
+      'Gemini',
+      name: 'dateSign_6',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancer`
+  String get dateSign_7 {
+    return Intl.message(
+      'Cancer',
+      name: 'dateSign_7',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Leo`
+  String get dateSign_8 {
+    return Intl.message(
+      'Leo',
+      name: 'dateSign_8',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Virgo`
+  String get dateSign_9 {
+    return Intl.message(
+      'Virgo',
+      name: 'dateSign_9',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Libra`
+  String get dateSign_10 {
+    return Intl.message(
+      'Libra',
+      name: 'dateSign_10',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Scorpio`
+  String get dateSign_11 {
+    return Intl.message(
+      'Scorpio',
+      name: 'dateSign_11',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Capricorn`
+  String get dateSign_12 {
+    return Intl.message(
+      'Capricorn',
+      name: 'dateSign_12',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Monkey`
+  String get dateChinaSign_1 {
+    return Intl.message(
+      'Monkey',
+      name: 'dateChinaSign_1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rooster`
+  String get dateChinaSign_2 {
+    return Intl.message(
+      'Rooster',
+      name: 'dateChinaSign_2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dog`
+  String get dateChinaSign_3 {
+    return Intl.message(
+      'Dog',
+      name: 'dateChinaSign_3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pig`
+  String get dateChinaSign_4 {
+    return Intl.message(
+      'Pig',
+      name: 'dateChinaSign_4',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rat`
+  String get dateChinaSign_5 {
+    return Intl.message(
+      'Rat',
+      name: 'dateChinaSign_5',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Boole`
+  String get dateChinaSign_6 {
+    return Intl.message(
+      'Boole',
+      name: 'dateChinaSign_6',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tiger`
+  String get dateChinaSign_7 {
+    return Intl.message(
+      'Tiger',
+      name: 'dateChinaSign_7',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rabbit`
+  String get dateChinaSign_8 {
+    return Intl.message(
+      'Rabbit',
+      name: 'dateChinaSign_8',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dragon`
+  String get dateChinaSign_9 {
+    return Intl.message(
+      'Dragon',
+      name: 'dateChinaSign_9',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Snake`
+  String get dateChinaSign_10 {
+    return Intl.message(
+      'Snake',
+      name: 'dateChinaSign_10',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Horse`
+  String get dateChinaSign_11 {
+    return Intl.message(
+      'Horse',
+      name: 'dateChinaSign_11',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Goat`
+  String get dateChinaSign_12 {
+    return Intl.message(
+      'Goat',
+      name: 'dateChinaSign_12',
       desc: '',
       args: [],
     );

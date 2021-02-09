@@ -1,4 +1,5 @@
 import 'package:birth_days_app/src/presentation/bloc/home_bloc.dart';
+import 'package:birth_days_app/src/utils/locale_helper/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -48,8 +49,8 @@ class HomeListWidget extends StatelessWidget {
         },
       );
     }
-    else if (state is HomeListStateEmpty) return Center(child:Text("Empty"));
-    else return Center(child:Text("Error"));
+    else if (state is HomeListStateEmpty) return Center(child:Text(S.current.com_Empty));
+    else return Center(child:Text(S.current.com_Error));
   }
   
   Widget _getAppBar(String title) {
